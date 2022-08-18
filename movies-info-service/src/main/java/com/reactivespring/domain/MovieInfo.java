@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -17,8 +20,15 @@ public class MovieInfo {
 
     @Id
     private String movieInfoId;
+
+    @NotBlank(message = "movieInfo.name must be present")
     private String name;
+
+    @NotNull
+    @Positive(message = "movieInfo.year must be positive value")
     private Integer year;           // 영화 출시년
-    private List<String> cast;      // 케스팅 된 사람들 목록
+
+
+    private List<@NotBlank(message = "movieInfo.cast must be present") String> cast;      // 케스팅 된 사람들 목록
     private LocalDate release_date;
 }

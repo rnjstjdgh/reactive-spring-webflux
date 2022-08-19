@@ -44,6 +44,22 @@ class MovieInfoRepositoryIntgTest {
     }
 
     @Test
+    void findByYear(){
+        // given
+        Integer year = 2008;
+
+        // when
+        Flux<MovieInfo> movieInfoFlux = movieInfoRepository.findByYear(year);
+
+        // then
+        StepVerifier.create(movieInfoFlux)
+                .assertNext(movieInfo -> {
+                    assertEquals(movieInfo.getName(), "The Dark Knight");
+                })
+                .verifyComplete();
+    }
+
+    @Test
     void findAll() {
         // given
 
